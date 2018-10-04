@@ -1,0 +1,133 @@
+#+TITLE: igloonet-defaults
+
+Výchozí nastavení pro [[https://spacemacs.org][Spacemacs]], která používáme v [[https://igloonet.cz][igloonet]].
+
+Momentálně jde o *alfa* verzi, máme přetaženou jen malou část používané
+konfigurace s důrazem na základy, které jsou opravdu potřeba, aby se dalo
+rozumně pracovat (ať už v org-mode nebo při spravování serverů).
+
+*Použijte /Spacemacs/ větev /develop/*. V současné době silně nedoporučujeme použití /stable/.
+
+* Pro koho tato vrstva je
+ - pro ty, kteří si chtějí /Spacemacs/ jen vyzkoušet
+ - pro ty, kteří už chtějí pracovat a nemají *zatím* čas si hrát s nastavením
+ - pro ty, kteří věří, že to nastavíme dobře a chtějí průběžně dostávat vychytávky, které objevíme
+
+* Upozornění
+Snažíme se přidávat pouze taková nastavení, která dle nás mají smysl pro většinu
+uživatelů a poskytují "lepší než výchozí" zážitek.
+
+Některá naše nastavení vám mohou zkomplikovat pozdější úpravy, ale snažíme se,
+aby se to nestalo. Jednoduše při vlastních úpravách myslete na to, že
+nepoužíváte jen výchozí konfiguraci.
+
+Stávající styl vrstvy =igloonet-defaults= je spíš hack, který umožňuje přidat
+nastavení pár řádky namísto kopírování dlouhého konfiguráku. Pokusíme se časem
+čistit a zlepšovat, ale zatím jsme nenašli dostatečnou podporu ve Spacemacsu pro
+tento styl vrstvy.
+
+* Jak začít
+** Naklonujte si vrstvu
+Jelikož tahle vrstva není přímo ve /Spacemacs/, musíte si ji naklonovat mezi
+lokální vrstvy. Ve výchozím umístění je to:
+
+#+BEGIN_SRC sh
+git clone https://github.com/igloonet/igloonet-defaults.git ~/.emacs.d/private/layers/igloonet-defaults
+#+END_SRC
+
+Nebo pokud si v nastavení upravíte cestu tak, jak doporučujeme níže, tak:
+
+#+BEGIN_SRC sh
+git clone https://github.com/igloonet/igloonet-defaults.git ~/.spacemacs.d/layers/igloonet-defaults
+#+END_SRC
+
+Následně proveďte následující úpravy v konfiguraci /Spacemacs/ (pokud jej máte
+spuštěný, tak použijte zkratku =SPC f e d=.
+
+** Aktivujte vrstvu
+Přejděte na řádek začínající =dotspacemacs-configuration-layers=, kde najdete
+instrukce pro přidání další vrstvy. Zjednodušeně, pokud jste ještě nic
+neupravovali, tak přidejte na nový řádek za řádek na kterém je pouze =helm=
+následující:
+
+#+BEGIN_SRC elisp
+(ivy :variables
+     ivy-enable-advanced-buffer-information t)
+(igloonet-defaults :variables
+                   org-enable-reveal-js-support t
+                   org-want-todo-bindings t)
+#+END_SRC
+
+=helm= následně můžete smazat, místo něj používáme /ivy/. Pokud víte co to
+/helm/ je a máte jej radši než /ivy/ tak si upravte konfiguraci tak, jak vám
+vyhovuje.
+
+/Upozornění/ - pokud už Spacemacs trošku znáte, zde vidíte jeden z prvních
+používaných hacků. Přiřazujeme variables z ostatních vrstev do naší vrstvy, což
+není zrovna ok, ale usnadňuje to prvotní konfiguraci.
+
+** Doporučené úpravy nastavení Spacemacsu
+
+| =dotspacemacs-configuration-layer-path= | '("~/.spacemacs.d/layers/") | Abychom mohli uchovávat změny v gitu, změníme si umístění vrstev. |
+| =dotspacemacs-which-key-delay=          | 0.1                         | Rychlejší reakce na SPC                                           |
+| =dotspacemacs-frame-title-format=       | "%I[%t] %b"                 | Nezbytnost, pokud používáte tiling window manager.                |
+| =dotspacemacs-icon-title-format=        | "%b[%t]"                    | Nezbytnost, pokud používáte tiling window manager.                |
+
+Zde pro jistotu ještě jednou v source bloku kvůli tomu jako github rozbíjí uvozovky:
+
+#+BEGIN_SRC elisp
+dotspacemacs-configuration-layer-path '("~/spacemacs/.spacemacs.d/layers/")
+dotspacemacs-which-key-delay 0.1
+dotspacemacs-frame-title-format "%I[%t] %b"
+dotspacemacs-icon-title-format "%b[%t]"
+#+END_SRC
+
+* A co tedy vlastně upravujeme
+Stručný popis aktuálních změn, které tato vrstva přináší
+
+** org-mode
+*** Klíčová TODO slova
+1. Nastavení klíčových slov na: TODO, NEXT, INPROG, DONE, WAITING, HOLD, CANCELLED.
+2. Automatické přepínání tagů dle těchto slov
+3. Výchozí barvičky
+
+*** Org babel bloky
+1. zrušení odsazení v blocích
+2. ~TAB~ funguje tak jako v daném jazyce
+3. použití stylu jako v daném jazyce
+4. *není* nutné potvrzovat spuštění bloku
+
+*** Org
+1. startujeme s obrázky
+2. agenda je sticky
+3. odsazujeme texty dle headlines
+4. TODO slova lze přepnout přes ~t~ na hlavičce
+5. při použití ~S-h~ nebo ~S-l~ nad todo hlavičkou se obchází log
+
+*** Evil surround
+1. v =org= bufferech můžete přes ~s s~ dát označený text do Org src bloku.
+
+** SSH (TRAMP)
+*** Upravené nastavení
+1. výchozí metoda pro TRAMP je *ssh*
+2. ControlMaster options načítáme z =~/.ssh/config= místo nastavení v emacsu
+3. U /sudo/ metody umožňujeme doplňování dle =known_hosts=
+4. Zjednodušená cesta přes sudo na servery =/sudo:server.domena:= znamená připoj se přes SSH na server pod mým uživatelem a dej sudo na roota
+5. Pro lokální systém lze použít klasické /sudo/, ale pozor, je nutné zadat hostname počítače místo /localhost/
+
+*** Nové funkce
+*Pozor*, v budoucnu budeme pravděpodobně měnit zkratky pro tyto funkce, zatím jsou hozené bokem, protože nebyl čas jim najít místo.
+
+**** vlk/remote-file-edit ~SPC o f~
+Umožní pohodlně otevřít soubor na vzdáleném serveru. Zeptá se na server (doplní dle =known_hosts=) a následně přes procházení snadno najdete daný soubor.
+
+**** vlk/open-remote-file ~SPC o e~
+Pokud máte v bufferu otevřený konkrétní soubor, např. =/etc/fstab= na vzdáleném serveru, umožní vám pohodlně otevřít ten stejný soubor na jiném serveru.
+
+* Výběr nastavení, která chcete aplikovat
+Na úrovni větších celků (org-mode, SSH), je možné deaktivovat některé nastavení, které děláme přes proměnné vrstvy.
+
+| Proměnná                  | Výchozí | Popis                       |
+|---------------------------+---------+-----------------------------|
+| igloonet-defaults-for-org | t       | Zda použít defaulty pro org |
+| igloonet-defaults-for-ssh | t       | Zda použít defaulty pro SSH |
