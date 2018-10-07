@@ -82,6 +82,15 @@ dotspacemacs-frame-title-format "%I[%t] %b"
 dotspacemacs-icon-title-format "%b[%t]"
 #+END_SRC
 
+** Zapnutí jazyků podporovaných v Org Babel
+Protože každý skriptujeme a programujeme v jiných jazycích, nemá smysl nastavovat nějaké předdefinované.
+
+Jako cvičení v konfigurování Spacemacsu si tak můžete upravit podporované jazyky přes Emacs customize systém.
+
+~SPC h d v~ (help describe variable) vyhledejte proměnnou =org-babel-load-languages=, dejte enter a přidejte si jazyky, které chcete. Když si pozorně přečtete instrukce, je to hračka, stačí nespěchat. 
+
+Pro otestování stačí stisknout /Apply/, pokud jste spokojeni a chcete nechat jazyky, kterými bude babel mluvit takové, dejte /Apply and Save/.
+
 * A co tedy vlastně upravujeme
 Stručný popis aktuálních změn, které tato vrstva přináší
 
