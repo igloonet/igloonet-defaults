@@ -45,10 +45,9 @@
           org-agenda-span 'day)
 
     ;; evil surround - support for s and S to add source block
+    (require 'evil-surround)
     (add-hook 'org-mode-hook (lambda()
                                (push '(?s . ("#+BEGIN_SRC" . "#+END_SRC")) evil-surround-pairs-alist)
-                               (push '(?S . ("#+BEGIN_SRC\n" . "\n#+END_SRC")) evil-surround-pairs-alist)
-                               ))
-  )
+                               )))
 
 (provide 'igloonet-defaults-org)
