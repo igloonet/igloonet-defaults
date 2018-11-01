@@ -42,6 +42,7 @@
           org-ctrl-k-protect-subtree t
           org-drawers (quote ("PROPERTIES""LOGBOOK"))
           org-log-into-drawer t
+          org-log-done 'time
           org-agenda-span 'day)
 
     ;; add a org-attach att abbrev to links
