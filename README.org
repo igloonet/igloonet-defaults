@@ -127,11 +127,14 @@ Stručný popis aktuálních změn, které tato vrstva přináší
 *** Nové funkce
 *Pozor*, v budoucnu budeme pravděpodobně měnit zkratky pro tyto funkce, zatím jsou hozené bokem, protože nebyl čas jim najít místo.
 
-**** vlk/remote-file-edit ~SPC o f~
+**** kepi/open-remote-file ~SPC I f~
 Umožní pohodlně otevřít soubor na vzdáleném serveru. Zeptá se na server (doplní dle =known_hosts=) a následně přes procházení snadno najdete daný soubor.
 
-**** vlk/open-remote-file ~SPC o e~
-Pokud máte v bufferu otevřený konkrétní soubor, např. =/etc/fstab= na vzdáleném serveru, umožní vám pohodlně otevřít ten stejný soubor na jiném serveru.
+**** vlk/sudo-open-remote-file ~SPC I s~
+Stejné jako předchozí, jen použije sudo.
+
+**** vlk/sudo-open-same-file-elsewhere ~SPC I e~
+Pokud máte v bufferu otevřený konkrétní soubor, např. =/etc/fstab= na vzdáleném serveru, umožní vám pohodlně otevřít ten stejný soubor na jiném serveru pod sudem.
 
 * Výběr nastavení, která chcete aplikovat
 Na úrovni větších celků (org-mode, SSH), je možné deaktivovat některé nastavení, které děláme přes proměnné vrstvy.
