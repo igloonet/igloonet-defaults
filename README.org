@@ -112,6 +112,7 @@ Stručný popis aktuálních změn, které tato vrstva přináší
 3. odsazujeme texty dle headlines
 4. TODO slova lze přepnout přes ~t~ na hlavičce
 5. při použití ~S-h~ nebo ~S-l~ nad todo hlavičkou se obchází log
+6. Přidáváme zkratku =att= pro odkazy na soubory přidané přes /org-attach/
 
 *** Evil surround
 1. v =org= bufferech můžete přes ~s s~ dát označený text do Org src bloku.

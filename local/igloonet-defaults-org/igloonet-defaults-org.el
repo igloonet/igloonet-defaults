@@ -44,6 +44,10 @@
           org-log-into-drawer t
           org-agenda-span 'day)
 
+    ;; add a org-attach att abbrev to links
+    (require 'org-attach)
+    (push '("att" . org-attach-expand-link) org-link-abbrev-alist)
+
     ;; evil surround - support for s and S to add source block
     (require 'evil-surround)
     (add-hook 'org-mode-hook (lambda()
