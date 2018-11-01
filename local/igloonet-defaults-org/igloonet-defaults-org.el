@@ -55,4 +55,10 @@
                                (push '(?s . ("#+BEGIN_SRC" . "#+END_SRC")) evil-surround-pairs-alist)
                                )))
 
+;; namísto odrážek v orgu nastavíme pěkný bullets
+;; zdroj: http://www.howardism.org/Technical/Emacs/orgmode-wordprocessor.html
+(font-lock-add-keywords 'org-mode
+                        '(("^\s*\\([-]\\) "
+                          (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
 (provide 'igloonet-defaults-org)
